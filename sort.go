@@ -24,7 +24,7 @@ func (s Peoples) Swap(i, j int) {
 
 type ByNameSort struct {
 	Peoples
-	sort string
+	sort string //asc or desc?
 }
 
 func (by ByNameSort) Less(i, j int) bool {
@@ -32,6 +32,20 @@ func (by ByNameSort) Less(i, j int) bool {
 		return by.Peoples[i].name > by.Peoples[j].name
 	} else if by.sort == "desc" {
 		return by.Peoples[i].name < by.Peoples[j].name
+	}
+	return false
+}
+
+type ByAgeSort struct {
+	Peoples
+	sort string //asc or desc?
+}
+
+func (by ByAgeSort) Less(i, j int) bool {
+	if by.sort == "asc" {
+		return by.Peoples[i].age > by.Peoples[j].age
+	} else if by.sort == "desc" {
+		return by.Peoples[i].age < by.Peoples[j].age
 	}
 	return false
 }
@@ -51,5 +65,17 @@ func main() {
 	sort.Sort(ByNameSort{stu, "desc"})
 	fmt.Println("sort by name desc:")
 	fmt.Println(stu)
+
+	sort.Sort(ByAgeSort{stu, "desc"})
+	fmt.Println("sort by age desc:")
+	fmt.Println(stu)
+
+	// output:
+	// sort by name asc:
+	// [{Roce 20 teacher reader} {Lily 18 stu eat} {Anderow 35 coder sport}]
+	// sort by name desc:
+	// [{Anderow 35 coder sport} {Lily 18 stu eat} {Roce 20 teacher reader}]
+	// sort by age desc:
+	// [{Lily 18 stu eat} {Roce 20 teacher reader} {Anderow 35 coder sport}]
 
 }
